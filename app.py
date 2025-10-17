@@ -3,8 +3,32 @@ import pickle
 import streamlit as st
 import numpy as np
 
+# Set global font to serif
+st.markdown(
+    """
+    <style>
+    body {
+        font-family: serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-st.title('Book Recommender System Using Machine Learning 📚')
+# Sidebar with project description
+st.sidebar.title("About the Project")
+st.sidebar.write("""
+This is a Book Recommender System built using Machine Learning. It uses a collaborative filtering approach to recommend books based on user ratings.
+
+Features:
+- Select a book from the dropdown
+- Get personalized recommendations
+- View book posters and search on Google
+
+The system is trained on a dataset of book ratings and uses cosine similarity to find similar books.
+""")
+
+st.title('Book Recommender System Using Machine Learning')
 model = pickle.load(open('model.pkl','rb'))
 book_names = pickle.load(open('book_names.pkl','rb'))
 final_rating = pickle.load(open('final_rating.pkl','rb'))
@@ -45,15 +69,13 @@ def recommend_book(book_name):
     return books_list , poster_url       
 
 
-st.write(f"Total books available: {len(book_names)}")
-
 selected_books = st.selectbox(
-    "Type or select a book from the dropdown",book_names)
+    "Select a book",book_names)
 
 if st.button('Show Recommendation'):
     recommended_books, poster_url = recommend_book(selected_books)
     
-    st.subheader("Recommended Books 📚")
+    st.subheader("Recommended Books")
     
     # Create a row of 5 columns
     cols = st.columns(5)

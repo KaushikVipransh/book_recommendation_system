@@ -1,0 +1,3 @@
+- [x] Remove emojis from title and subheader in app.py
+- [x] Add CSS to set font-family to serif globally
+- [x] Add sidebar with project description
